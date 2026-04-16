@@ -76,7 +76,7 @@ export async function PUT(req: NextRequest) {
       format: "JSONEachRow",
     });
 
-    const [old] = await result.json();
+    const [old] : any= await result.json();
 
     if (!old) {
       return NextResponse.json({ error: "Payroll not found" }, { status: 404 });
