@@ -47,12 +47,9 @@ export async function POST(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   try {
     const body = await req.json();
-
-    if (!body.id) {
-      return NextResponse.json({ error: "ID required" }, { status: 400 });
-    }
-
     const { name, email, salary, id } = body;
+
+    if (id) return NextResponse.json({ error: "ID required" }, { status: 400 });
 
     const result = await clickhouse.query({
       query: `ALTER TABLE employees UPDATE name = '${name}', email = '${email}', salary = '${salary}' WHERE id = '${id}'`,
@@ -60,7 +57,6 @@ export async function PUT(req: NextRequest) {
     });
 
     await result.json();
-
     return NextResponse.json({ success: true });
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 500 });
