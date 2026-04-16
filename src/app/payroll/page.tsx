@@ -278,7 +278,7 @@ export default function PayrollPage() {
         </div>
 
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 mb-6">
-          <div className="p-4 flex flex-col sm:flex-row gap-4 justify-between items-center">
+          <div className="p-2 flex flex-col sm:flex-row gap-4 justify-between items-center">
             <div className="flex gap-3 flex-1 max-w-2xl">
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
