@@ -88,7 +88,8 @@ export default function EmployeesPage() {
             if (editingId) {
                 await fetch(url, { method: PUT, headers, body: stringify({ id: editingId, ...form }) });
                 showNotification(0, 'Employee updated successfully');
-                window.location.reload()
+                await new Promise(res => setTimeout(res, 500));
+                await load();
             } else {
                 await fetch(url, { method: POST, headers, body: stringify(form) });
                 showNotification(0, 'Employee added successfully');
