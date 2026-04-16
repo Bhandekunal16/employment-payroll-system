@@ -149,7 +149,7 @@ export default function EmployeesPage() {
 
             <div className=" mx-auto px-4 py-8">
                 {/* Header */}
-                <div className="mb-8">
+                <div className="mb-2">
                     <h1 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
                         Employee Management
                     </h1>
@@ -157,8 +157,8 @@ export default function EmployeesPage() {
                 </div>
 
                 {/* Stats Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-2">
+                    <div className="bg-white rounded-xl shadow-sm p-4 border border-gray-100 hover:shadow-md transition-shadow">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-gray-500 text-sm">Total Employees</p>
@@ -170,7 +170,7 @@ export default function EmployeesPage() {
                         </div>
                     </div>
 
-                    <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
+                    <div className="bg-white rounded-xl shadow-sm p-4 border border-gray-100 hover:shadow-md transition-shadow">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-gray-500 text-sm">Total Salary Pool</p>
@@ -182,7 +182,7 @@ export default function EmployeesPage() {
                         </div>
                     </div>
 
-                    <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
+                    <div className="bg-white rounded-xl shadow-sm p-4 border border-gray-100 hover:shadow-md transition-shadow">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-gray-500 text-sm">Average Salary</p>

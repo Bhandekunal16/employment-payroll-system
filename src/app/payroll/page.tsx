@@ -232,15 +232,15 @@ export default function PayrollPage() {
       )}
 
       <div className="container mx-auto px-4 py-8 max-w-7xl">
-        <div className="mb-8">
+        <div className="mb-2">
           <h1 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
             Payroll Management
           </h1>
           <p className="text-gray-600 mt-2">Process payroll and manage employee compensation</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-2">
+          <div className="bg-white rounded-xl shadow-sm p-4 border border-gray-100 hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-500 text-sm">Total Payroll</p>
@@ -252,7 +252,7 @@ export default function PayrollPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
+          <div className="bg-white rounded-xl shadow-sm p-4 border border-gray-100 hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-500 text-sm">Average Net Salary</p>
@@ -264,7 +264,7 @@ export default function PayrollPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
+          <div className="bg-white rounded-xl shadow-sm p-4 border border-gray-100 hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-500 text-sm">Total Bonuses</p>
