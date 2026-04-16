@@ -30,6 +30,8 @@ export default function EmployeesPage() {
     const [showForm, setShowForm] = React.useState(false);
     const [editingId, setEditingId] = React.useState<string | null>(null);
     const [notification, setNotification] = React.useState<{ type: 'success' | 'error'; message: string } | null>(null);
+    const [showDeleteModal, setShowDeleteModal] = React.useState(false);
+    const [deleteId, setDeleteId] = React.useState<string | null>(null);
 
     const load = async () => {
         setLoading(true);
@@ -56,6 +58,11 @@ export default function EmployeesPage() {
         );
         setFilteredEmployees(filtered);
     }, [searchTerm, employees]);
+
+    const handleDelete = (id: string) => {
+        setDeleteId(id);
+        setShowDeleteModal(true);
+    };
 
     const showNotification = (type: 'success' | 'error', message: string) => {
         setNotification({ type, message });
@@ -102,15 +109,21 @@ export default function EmployeesPage() {
         setShowForm(true);
     };
 
-    const handleDelete = async (id: string) => {
-        if (!confirm('Are you sure you want to delete this employee?')) return;
+    const confirmDelete = async () => {
+        if (!deleteId) return;
 
         setLoading(true);
         try {
-            await fetch(url, { method: DELETE, headers, body: stringify({ id }) });
+            await fetch('/api/employees', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: deleteId })
+            });
+
             showNotification('success', 'Employee deleted successfully');
+            setShowDeleteModal(false);
             await load();
-        } catch (error) {
+        } catch {
             showNotification('error', 'Failed to delete employee');
         } finally {
             setLoading(false);
@@ -204,6 +217,39 @@ export default function EmployeesPage() {
                             Add Employee
                         </button>
                     </div>
+
+                    {showDeleteModal && (
+                        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+
+                            <div className="bg-white rounded-lg shadow-lg w-full max-w-sm p-5 animate-in fade-in zoom-in-95">
+
+                                <h2 className="text-base font-semibold text-gray-800 mb-2">
+                                    Delete Employee
+                                </h2>
+
+                                <p className="text-sm text-gray-600 mb-5">
+                                    Are you sure you want to delete this employee? This action cannot be undone.
+                                </p>
+
+                                <div className="flex justify-end gap-2">
+                                    <button
+                                        onClick={() => setShowDeleteModal(false)}
+                                        className="px-3 py-1.5 text-sm border rounded hover:bg-gray-100"
+                                    >
+                                        Cancel
+                                    </button>
+
+                                    <button
+                                        onClick={confirmDelete}
+                                        className="px-3 py-1.5 text-sm bg-red-600 text-white rounded hover:bg-red-700"
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    )}
 
                     {showForm && (
                         <div className="border-t border-gray-100 p-4 bg-gray-50 animate-in slide-in-from-top-2 duration-300">
