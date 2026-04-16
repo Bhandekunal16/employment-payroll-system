@@ -175,7 +175,7 @@ export default function EmployeesPage() {
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-gray-500 text-sm">Total Salary Pool</p>
-                                <p className="text-3xl font-bold text-gray-900">£{totalSalary.toLocaleString()}</p>
+                                <p className="text-3xl font-bold text-gray-900">₹{totalSalary.toLocaleString()}</p>
                             </div>
                             <div className="bg-green-50 p-3 rounded-full">
                                 <DollarSign className="w-6 h-6 text-green-500" />
@@ -187,7 +187,7 @@ export default function EmployeesPage() {
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-gray-500 text-sm">Average Salary</p>
-                                <p className="text-3xl font-bold text-gray-900">£{averageSalary.toLocaleString()}</p>
+                                <p className="text-3xl font-bold text-gray-900">₹{averageSalary.toLocaleString()}</p>
                             </div>
                             <div className="bg-purple-50 p-3 rounded-full">
                                 <DollarSign className="w-6 h-6 text-purple-500" />
@@ -255,7 +255,7 @@ export default function EmployeesPage() {
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Annual Salary (£)</label>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">Annual Salary (₹)</label>
                                         <input
                                             type="number"
                                             placeholder="50000"
@@ -341,7 +341,7 @@ export default function EmployeesPage() {
                                             </td>
                                             <td className="py-3 px-6 text-right">
                                                 <span className="font-semibold text-gray-900">
-                                                    £{emp.salary.toLocaleString()}
+                                                    ₹{emp.salary.toLocaleString()}
                                                 </span>
                                             </td>
                                             <td className="py-3 px-6">

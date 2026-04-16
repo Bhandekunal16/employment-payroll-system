@@ -167,7 +167,7 @@ export default function PayrollPage() {
       });
 
       const data = await res.json();
-      showNotification('success', `Payroll generated! Net Salary: £${data.net.toLocaleString()}`);
+      showNotification('success', `Payroll generated! Net Salary: ₹${data.net.toLocaleString()}`);
       await load();
       resetForm();
     } catch (error) {
@@ -244,7 +244,7 @@ export default function PayrollPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-500 text-sm">Total Payroll</p>
-                <p className="text-3xl font-bold text-gray-900">£{summary.totalPayroll.toLocaleString()}</p>
+                <p className="text-3xl font-bold text-gray-900">₹{summary.totalPayroll.toLocaleString()}</p>
               </div>
               <div className="bg-green-50 p-3 rounded-full">
                 <DollarSign className="w-6 h-6 text-green-500" />
@@ -256,7 +256,7 @@ export default function PayrollPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-500 text-sm">Average Net Salary</p>
-                <p className="text-3xl font-bold text-gray-900">£{summary.avgNetSalary.toLocaleString()}</p>
+                <p className="text-3xl font-bold text-gray-900">₹{summary.avgNetSalary.toLocaleString()}</p>
               </div>
               <div className="bg-blue-50 p-3 rounded-full">
                 <TrendingUp className="w-6 h-6 text-blue-500" />
@@ -268,7 +268,7 @@ export default function PayrollPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-500 text-sm">Total Bonuses</p>
-                <p className="text-3xl font-bold text-gray-900">£{summary.totalBonus.toLocaleString()}</p>
+                <p className="text-3xl font-bold text-gray-900">₹{summary.totalBonus.toLocaleString()}</p>
               </div>
               <div className="bg-purple-50 p-3 rounded-full">
                 <TrendingUp className="w-6 h-6 text-purple-500" />
@@ -350,7 +350,7 @@ export default function PayrollPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Base Salary (£)</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Base Salary (₹)</label>
                   <input
                     type="number"
                     value={form.base_salary}
@@ -360,7 +360,7 @@ export default function PayrollPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Bonus (£)</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Bonus (₹)</label>
                   <input
                     type="number"
                     placeholder="0"
@@ -371,7 +371,7 @@ export default function PayrollPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Deductions (£)</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Deductions (₹)</label>
                   <input
                     type="number"
                     placeholder="0"
@@ -385,7 +385,7 @@ export default function PayrollPage() {
                   <label className="block text-sm font-medium text-gray-700 mb-1">Net Salary Preview</label>
                   <div className="px-3 py-2 bg-blue-50 border border-blue-200 rounded-lg">
                     <span className="font-semibold text-blue-700">
-                      £{calculateNetSalary().toLocaleString()}
+                      ₹{calculateNetSalary().toLocaleString()}
                     </span>
                   </div>
                 </div>
@@ -463,16 +463,16 @@ export default function PayrollPage() {
                         </div>
                       </td>
                       <td className="py-3 px-6 text-right">
-                        <span className="text-gray-600">£{payroll.base_salary.toLocaleString()}</span>
+                        <span className="text-gray-600">₹{payroll.base_salary.toLocaleString()}</span>
                       </td>
                       <td className="py-3 px-6 text-right">
-                        <span className="text-green-600 font-medium">+£{payroll.bonus?.toLocaleString() || 0}</span>
+                        <span className="text-green-600 font-medium">+₹{payroll.bonus?.toLocaleString() || 0}</span>
                       </td>
                       <td className="py-3 px-6 text-right">
-                        <span className="text-red-600 font-medium">-£{payroll.deductions?.toLocaleString() || 0}</span>
+                        <span className="text-red-600 font-medium">-₹{payroll.deductions?.toLocaleString() || 0}</span>
                       </td>
                       <td className="py-3 px-6 text-right">
-                        <span className="font-bold text-gray-900">£{payroll.net_salary.toLocaleString()}</span>
+                        <span className="font-bold text-gray-900">₹{payroll.net_salary.toLocaleString()}</span>
                       </td>
                       <td className="py-3 px-6">
                         <div className="flex items-center justify-center gap-2">
