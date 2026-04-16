@@ -93,6 +93,7 @@ export default function EmployeesPage() {
                     body: JSON.stringify({ id: editingId, ...form })
                 });
                 showNotification('success', 'Employee updated successfully');
+                window.location.reload()
             } else {
                 await fetch('/api/employees', {
                     method: 'POST',
