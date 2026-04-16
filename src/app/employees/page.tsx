@@ -1,8 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import React from 'react';
 import {
-    Plus,
     Edit2,
     Trash2,
     Search,
@@ -16,14 +15,14 @@ import {
 import { Employee, FormData } from '../types';
 
 export default function EmployeesPage() {
-    const [employees, setEmployees] = useState<Employee[]>([]);
-    const [filteredEmployees, setFilteredEmployees] = useState<Employee[]>([]);
-    const [form, setForm] = useState<FormData>({ name: '', email: '', salary: 0 });
-    const [searchTerm, setSearchTerm] = useState('');
-    const [loading, setLoading] = useState(true);
-    const [showForm, setShowForm] = useState(false);
-    const [editingId, setEditingId] = useState<string | null>(null);
-    const [notification, setNotification] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+    const [employees, setEmployees] = React.useState<Employee[]>([]);
+    const [filteredEmployees, setFilteredEmployees] = React.useState<Employee[]>([]);
+    const [form, setForm] = React.useState<FormData>({ name: '', email: '', salary: 0 });
+    const [searchTerm, setSearchTerm] = React.useState('');
+    const [loading, setLoading] = React.useState(true);
+    const [showForm, setShowForm] = React.useState(false);
+    const [editingId, setEditingId] = React.useState<string | null>(null);
+    const [notification, setNotification] = React.useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
     const load = async () => {
         setLoading(true);
@@ -39,11 +38,11 @@ export default function EmployeesPage() {
         }
     };
 
-    useEffect(() => {
+    React.useEffect(() => {
         load();
     }, []);
 
-    useEffect(() => {
+    React.useEffect(() => {
         const filtered = employees.filter(emp =>
             emp.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
             emp.email.toLowerCase().includes(searchTerm.toLowerCase())
