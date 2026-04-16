@@ -1,20 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { clickhouse } from "@/app/lib/clickhouse";
 import { randomUUID } from "crypto";
+import config from "../../config/query.config.json";
 
-// =======================
-// GET → List payroll (latest records)
-// =======================
+const { format }: { format: any } = config;
+
 export async function GET() {
   try {
     const result = await clickhouse.query({
-      query: `
-        SELECT *
-        FROM payroll
-        ORDER BY created_at DESC
-        LIMIT 1 BY id
-      `,
-      format: "JSONEachRow",
+      query: `SELECT * FROM payroll ORDER BY created_at DESC LIMIT 1 BY id`,
+      format,
     });
 
     return NextResponse.json(await result.json());
@@ -23,9 +18,6 @@ export async function GET() {
   }
 }
 
-// =======================
-// POST → Create payroll
-// =======================
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -71,9 +63,6 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// =======================
-// PUT → Update payroll (append-only)
-// =======================
 export async function PUT(req: NextRequest) {
   try {
     const body = await req.json();
@@ -82,7 +71,6 @@ export async function PUT(req: NextRequest) {
       return NextResponse.json({ error: "id required" }, { status: 400 });
     }
 
-    // 🔹 Get existing record
     const result = await clickhouse.query({
       query: `SELECT * FROM payroll WHERE id = '${body.id}' LIMIT 1`,
       format: "JSONEachRow",
@@ -94,14 +82,12 @@ export async function PUT(req: NextRequest) {
       return NextResponse.json({ error: "Payroll not found" }, { status: 404 });
     }
 
-    // 🔹 Update only allowed fields
     const bonus = body.bonus !== undefined ? Number(body.bonus) : old.bonus;
     const deductions =
       body.deductions !== undefined ? Number(body.deductions) : old.deductions;
 
     const net = old.base_salary + bonus - deductions;
 
-    // 🔹 Insert updated record (append-only)
     await clickhouse.insert({
       table: "payroll",
       values: [
