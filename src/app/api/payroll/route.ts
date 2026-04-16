@@ -21,18 +21,20 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
+    const { employee_id, base_salary, month } = body;
 
-    if (!body.employee_id) {
+    if (!employee_id) {
       return NextResponse.json(
         { error: "employee_id required" },
         { status: 400 },
       );
     }
 
-    const base = Number(body.base_salary);
-    const bonus = Number(body.bonus);
-    const deductions = Number(body.deductions);
-
+    const [base, bonus, deductions] = [
+      Number(base_salary),
+      Number(body.bonus),
+      Number(body.deductions),
+    ];
     const net = base + bonus - deductions;
 
     await clickhouse.insert({
@@ -40,8 +42,8 @@ export async function POST(req: NextRequest) {
       values: [
         {
           id: randomUUID(),
-          employee_id: body.employee_id,
-          month: body.month,
+          employee_id,
+          month,
           base_salary: base,
           bonus,
           deductions,
@@ -49,7 +51,7 @@ export async function POST(req: NextRequest) {
           created_at: new Date().toISOString(),
         },
       ],
-      format: "JSONEachRow",
+      format,
     });
 
     return NextResponse.json({ success: true, net });
@@ -66,17 +68,17 @@ export async function POST(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   try {
     const body = await req.json();
+    const { id, base_salary } = body;
 
-    if (!body.id) {
+    if (!id)
       return NextResponse.json({ error: "id required" }, { status: 400 });
-    }
 
     const result = await clickhouse.query({
-      query: `SELECT * FROM payroll WHERE id = '${body.id}' LIMIT 1`,
-      format: "JSONEachRow",
+      query: `SELECT * FROM payroll WHERE id = '${id}' LIMIT 1`,
+      format,
     });
 
-    const [old] : any= await result.json();
+    const [old]: any = await result.json();
 
     if (!old) {
       return NextResponse.json({ error: "Payroll not found" }, { status: 404 });
@@ -86,7 +88,7 @@ export async function PUT(req: NextRequest) {
     const deductions =
       body.deductions !== undefined ? Number(body.deductions) : old.deductions;
 
-    const net = old.base_salary + bonus - deductions;
+    const net = base_salary + bonus - deductions;
 
     await clickhouse.insert({
       table: "payroll",
@@ -99,7 +101,7 @@ export async function PUT(req: NextRequest) {
           created_at: new Date().toISOString(),
         },
       ],
-      format: "JSONEachRow",
+      format,
     });
 
     return NextResponse.json({ success: true, net });
