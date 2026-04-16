@@ -13,21 +13,7 @@ import {
     Mail,
     UserPlus
 } from 'lucide-react';
-
-// Types
-interface Employee {
-    id: string;
-    name: string;
-    email: string;
-    salary: number;
-    createdAt?: string;
-}
-
-interface FormData {
-    name: string;
-    email: string;
-    salary: number;
-}
+import { Employee, FormData } from '../types';
 
 export default function EmployeesPage() {
     const [employees, setEmployees] = useState<Employee[]>([]);
@@ -149,7 +135,6 @@ export default function EmployeesPage() {
             )}
 
             <div className=" mx-auto px-4 py-8">
-                {/* Header */}
                 <div className="mb-2">
                     <h1 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
                         Employee Management
@@ -157,7 +142,6 @@ export default function EmployeesPage() {
                     <p className="text-gray-600 mt-2">Manage your workforce efficiently</p>
                 </div>
 
-                {/* Stats Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-2">
                     <div className="bg-white rounded-xl shadow-sm p-4 border border-gray-100 hover:shadow-md transition-shadow">
                         <div className="flex items-center justify-between">
@@ -196,7 +180,6 @@ export default function EmployeesPage() {
                     </div>
                 </div>
 
-                {/* Actions Bar */}
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 mb-6">
                     <div className="p-4 flex flex-col sm:flex-row gap-4 justify-between items-center">
                         <div className="relative flex-1 max-w-md">
@@ -227,7 +210,6 @@ export default function EmployeesPage() {
                         </button>
                     </div>
 
-                    {/* Form */}
                     {showForm && (
                         <div className="border-t border-gray-100 p-4 bg-gray-50 animate-in slide-in-from-top-2 duration-300">
                             <form onSubmit={handleSubmit} className="space-y-4">
@@ -288,7 +270,6 @@ export default function EmployeesPage() {
                     )}
                 </div>
 
-                {/* Employees Table */}
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                     {loading && employees.length === 0 ? (
                         <div className="flex items-center justify-center py-12">

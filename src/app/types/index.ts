@@ -3,6 +3,7 @@ export interface Employee {
   name: string;
   email: string;
   salary: number;
+  createdAt?: string;
 }
 
 export interface Payroll {
@@ -11,4 +12,10 @@ export interface Payroll {
   base_salary: number;
   bonus: number;
   deductions: number;
+}
+
+export interface FormData {
+  name: string;
+  email: string;
+  salary: number;
 }
