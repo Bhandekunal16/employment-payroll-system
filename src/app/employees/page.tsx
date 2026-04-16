@@ -114,12 +114,7 @@ export default function EmployeesPage() {
 
         setLoading(true);
         try {
-            await fetch('/api/employees', {
-                method: 'DELETE',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id: deleteId })
-            });
-
+            await fetch(url, { method: DELETE, headers, body: stringify({ id: deleteId }) });
             showNotification('success', 'Employee deleted successfully');
             setShowDeleteModal(false);
             await load();
