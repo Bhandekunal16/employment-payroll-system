@@ -96,8 +96,9 @@ export default function EmployeesPage() {
     };
 
     const handleEdit = (employee: Employee) => {
-        setForm({ name: employee.name, email: employee.email, salary: employee.salary });
-        setEditingId(employee.id);
+        let { name, email, salary, id } = employee
+        setForm({ name, email, salary });
+        setEditingId(id);
         setShowForm(true);
     };
 
