@@ -15,6 +15,7 @@ import {
 import { Employee, FormData } from '../types';
 import config from "../config/employee.config.json"
 import apiConfig from "../config/api.config.json"
+import { stringify } from '../core/app.service';
 
 const { defaultFormValue, url } = config
 const { methods, headers } = apiConfig
@@ -78,11 +79,11 @@ export default function EmployeesPage() {
         setLoading(true);
         try {
             if (editingId) {
-                await fetch(url, { method: PUT, headers, body: JSON.stringify({ id: editingId, ...form }) });
+                await fetch(url, { method: PUT, headers, body: stringify({ id: editingId, ...form }) });
                 showNotification('success', 'Employee updated successfully');
                 window.location.reload()
             } else {
-                await fetch(url, { method: POST, headers, body: JSON.stringify(form) });
+                await fetch(url, { method: POST, headers, body: stringify(form) });
                 showNotification('success', 'Employee added successfully');
             }
             await load();
@@ -105,7 +106,7 @@ export default function EmployeesPage() {
 
         setLoading(true);
         try {
-            await fetch(url, { method: DELETE, headers, body: JSON.stringify({ id }) });
+            await fetch(url, { method: DELETE, headers, body: stringify({ id }) });
             showNotification('success', 'Employee deleted successfully');
             await load();
         } catch (error) {

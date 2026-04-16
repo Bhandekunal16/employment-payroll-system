@@ -49,7 +49,8 @@ export async function PUT(req: NextRequest) {
     const body = await req.json();
     const { name, email, salary, id } = body;
 
-    if (id) return NextResponse.json({ error: "ID required" }, { status: 400 });
+    if (!id)
+      return NextResponse.json({ error: "ID required" }, { status: 400 });
 
     const result = await clickhouse.query({
       query: `ALTER TABLE employees UPDATE name = '${name}', email = '${email}', salary = '${salary}' WHERE id = '${id}'`,
@@ -68,7 +69,8 @@ export async function DELETE(req: NextRequest) {
     const body = await req.json();
     const { id } = body;
 
-    if (id) return NextResponse.json({ error: "ID required" }, { status: 400 });
+    if (!id)
+      return NextResponse.json({ error: "ID required" }, { status: 400 });
 
     await clickhouse.command({
       query: `ALTER TABLE employees DELETE WHERE id = '${id}'`,
