@@ -1,0 +1,4 @@
+{
+  "methods": { "PUT": "PUT", "POST": "POST", "DELETE": "DELETE" },
+  "headers": { "Content-Type": "application/json" }
+}

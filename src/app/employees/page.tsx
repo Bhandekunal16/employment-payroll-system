@@ -13,11 +13,17 @@ import {
     IndianRupee
 } from 'lucide-react';
 import { Employee, FormData } from '../types';
+import config from "../config/employee.config.json"
+import apiConfig from "../config/api.config.json"
+
+const { defaultFormValue, url } = config
+const { methods, headers } = apiConfig
+const { POST, PUT, DELETE }: { POST: string, PUT: string, DELETE: string } = methods
 
 export default function EmployeesPage() {
     const [employees, setEmployees] = React.useState<Employee[]>([]);
     const [filteredEmployees, setFilteredEmployees] = React.useState<Employee[]>([]);
-    const [form, setForm] = React.useState<FormData>({ name: '', email: '', salary: 0 });
+    const [form, setForm] = React.useState<FormData>(defaultFormValue);
     const [searchTerm, setSearchTerm] = React.useState('');
     const [loading, setLoading] = React.useState(true);
     const [showForm, setShowForm] = React.useState(false);
@@ -27,7 +33,7 @@ export default function EmployeesPage() {
     const load = async () => {
         setLoading(true);
         try {
-            const response = await fetch('/api/employees');
+            const response = await fetch(url);
             const data = await response.json();
             setEmployees(data);
             setFilteredEmployees(data);
@@ -56,7 +62,7 @@ export default function EmployeesPage() {
     };
 
     const resetForm = () => {
-        setForm({ name: '', email: '', salary: 0 });
+        setForm(defaultFormValue);
         setEditingId(null);
         setShowForm(false);
     };
@@ -72,19 +78,11 @@ export default function EmployeesPage() {
         setLoading(true);
         try {
             if (editingId) {
-                await fetch('/api/employees', {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ id: editingId, ...form })
-                });
+                await fetch(url, { method: PUT, headers, body: JSON.stringify({ id: editingId, ...form }) });
                 showNotification('success', 'Employee updated successfully');
                 window.location.reload()
             } else {
-                await fetch('/api/employees', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(form)
-                });
+                await fetch(url, { method: POST, headers, body: JSON.stringify(form) });
                 showNotification('success', 'Employee added successfully');
             }
             await load();
@@ -107,11 +105,7 @@ export default function EmployeesPage() {
 
         setLoading(true);
         try {
-            await fetch('/api/employees', {
-                method: 'DELETE',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id })
-            });
+            await fetch(url, { method: DELETE, headers, body: JSON.stringify({ id }) });
             showNotification('success', 'Employee deleted successfully');
             await load();
         } catch (error) {

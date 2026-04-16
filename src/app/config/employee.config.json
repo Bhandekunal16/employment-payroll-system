@@ -1,0 +1,4 @@
+{
+  "defaultFormValue": { "name": "", "email": "", "salary": 0 },
+  "url": "/api/employees"
+}
