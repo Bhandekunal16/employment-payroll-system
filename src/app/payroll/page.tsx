@@ -224,7 +224,6 @@ export default function PayrollPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      {/* Notification */}
       {notification && (
         <div className={`fixed top-4 right-4 z-50 animate-in slide-in-from-top-2 fade-in duration-300 ${notification.type === 'success' ? 'bg-green-500' : 'bg-red-500'
           } text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-2`}>
@@ -233,15 +232,13 @@ export default function PayrollPage() {
       )}
 
       <div className="container mx-auto px-4 py-8 max-w-7xl">
-        {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
             Payroll Management
           </h1>
           <p className="text-gray-600 mt-2">Process payroll and manage employee compensation</p>
         </div>
 
-        {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between">
@@ -280,7 +277,6 @@ export default function PayrollPage() {
           </div>
         </div>
 
-        {/* Actions Bar */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 mb-6">
           <div className="p-4 flex flex-col sm:flex-row gap-4 justify-between items-center">
             <div className="flex gap-3 flex-1 max-w-2xl">
@@ -324,7 +320,6 @@ export default function PayrollPage() {
             </button>
           </div>
 
-          {/* Payroll Form */}
           {showForm && (
             <div className="border-t border-gray-100 p-6 bg-gray-50 animate-in slide-in-from-top-2 duration-300">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -416,7 +411,6 @@ export default function PayrollPage() {
           )}
         </div>
 
-        {/* Payroll Records Table */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
           {loading && payrolls.length === 0 ? (
             <div className="flex items-center justify-center py-12">
@@ -499,12 +493,10 @@ export default function PayrollPage() {
           )}
         </div>
 
-        {/* Export Section */}
         {filteredPayrolls.length > 0 && (
           <div className="mt-6 flex justify-end">
             <button
               onClick={() => {
-                // Implement export functionality
                 showNotification('success', 'Export feature coming soon');
               }}
               className="flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
@@ -549,7 +541,5 @@ export default function PayrollPage() {
         </div>
       )}
     </div>
-
-
   );
 }

@@ -37,7 +37,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const navItems = [
     { path: '/employees', name: 'Employees', icon: Users },
     { path: '/payroll', name: 'Payroll', icon: DollarSign },
-    { path: '/settings', name: 'Settings', icon: Settings },
   ];
 
   const isActive = (path: string) => pathname?.startsWith(path);
@@ -46,7 +45,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className="bg-gray-100 text-sm">
 
-        {/* Mobile Header */}
         {isMobile && (
           <div className="fixed top-0 left-0 right-0 bg-white border-b z-50 px-3 py-2 flex items-center justify-between">
             <button onClick={() => setSidebarOpen(true)} className="p-1">
@@ -56,7 +54,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         )}
 
-        {/* Overlay */}
         {isMobile && sidebarOpen && (
           <div
             className="fixed inset-0 bg-black/40 z-40"
@@ -64,7 +61,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           />
         )}
 
-        {/* Sidebar */}
+
         <aside
           className={`
             fixed top-0 left-0 z-50 h-screen w-52
@@ -74,7 +71,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             md:translate-x-0
           `}
         >
-          {/* Header */}
           <div className="flex items-center gap-2 p-4 border-b border-gray-800">
             <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center">
               <Briefcase className="w-4 h-4" />
@@ -82,7 +78,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <span className="font-semibold">Payroll</span>
           </div>
 
-          {/* Profile */}
           <div className="p-4 border-b border-gray-800 flex items-center gap-2">
             <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-xs">
               JD
@@ -94,7 +89,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <ChevronDown className="w-3 h-3 text-gray-400" />
           </div>
 
-          {/* Nav */}
           <nav className="p-2 space-y-1">
             {navItems.map(item => {
               const Icon = item.icon;
@@ -120,14 +114,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </nav>
         </aside>
 
-        {/* Main */}
         <main
           className={`
             min-h-screen transition-all
             ${isMobile ? 'mt-12' : 'ml-52'}
           `}
         >
-          {/* Desktop Topbar */}
           {!isMobile && (
             <div className="bg-white border-b px-4 py-2 flex justify-between items-center sticky top-0 z-30">
               <button
@@ -149,7 +141,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
           )}
 
-          {/* Content */}
           <div className="p-2">
             {children}
           </div>
