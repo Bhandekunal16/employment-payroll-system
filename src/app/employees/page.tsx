@@ -64,8 +64,8 @@ export default function EmployeesPage() {
         setShowDeleteModal(true);
     };
 
-    const showNotification = (type: 'success' | 'error', message: string) => {
-        setNotification({ type, message });
+    const showNotification = (type: 0 | 1, message: string) => {
+        setNotification({ type: type == 0 ? 'success' : 'error', message });
         setTimeout(() => setNotification(null), 3000);
     };
 
@@ -79,7 +79,7 @@ export default function EmployeesPage() {
         e.preventDefault();
 
         if (!form.name || !form.email || form.salary <= 0) {
-            showNotification('error', 'Please fill all fields correctly');
+            showNotification(1, 'Please fill all fields correctly');
             return;
         }
 
@@ -87,16 +87,16 @@ export default function EmployeesPage() {
         try {
             if (editingId) {
                 await fetch(url, { method: PUT, headers, body: stringify({ id: editingId, ...form }) });
-                showNotification('success', 'Employee updated successfully');
+                showNotification(0, 'Employee updated successfully');
                 window.location.reload()
             } else {
                 await fetch(url, { method: POST, headers, body: stringify(form) });
-                showNotification('success', 'Employee added successfully');
+                showNotification(0, 'Employee added successfully');
             }
             await load();
             resetForm();
         } catch (error) {
-            showNotification('error', 'Operation failed');
+            showNotification(1, 'Operation failed');
         } finally {
             setLoading(false);
         }
@@ -115,11 +115,11 @@ export default function EmployeesPage() {
         setLoading(true);
         try {
             await fetch(url, { method: DELETE, headers, body: stringify({ id: deleteId }) });
-            showNotification('success', 'Employee deleted successfully');
+            showNotification(0, 'Employee deleted successfully');
             setShowDeleteModal(false);
             await load();
         } catch {
-            showNotification('error', 'Failed to delete employee');
+            showNotification(1, 'Failed to delete employee');
         } finally {
             setLoading(false);
         }
