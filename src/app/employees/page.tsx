@@ -8,9 +8,9 @@ import {
     X,
     Loader2,
     Users,
-    DollarSign,
     Mail,
-    UserPlus
+    UserPlus,
+    IndianRupee
 } from 'lucide-react';
 import { Employee, FormData } from '../types';
 
@@ -161,7 +161,7 @@ export default function EmployeesPage() {
                                 <p className="text-3xl font-bold text-gray-900">₹{totalSalary.toLocaleString()}</p>
                             </div>
                             <div className="bg-green-50 p-3 rounded-full">
-                                <DollarSign className="w-6 h-6 text-green-500" />
+                                <IndianRupee className="w-6 h-6 text-green-500" />
                             </div>
                         </div>
                     </div>
@@ -173,7 +173,7 @@ export default function EmployeesPage() {
                                 <p className="text-3xl font-bold text-gray-900">₹{averageSalary.toLocaleString()}</p>
                             </div>
                             <div className="bg-purple-50 p-3 rounded-full">
-                                <DollarSign className="w-6 h-6 text-purple-500" />
+                                <IndianRupee className="w-6 h-6 text-purple-500" />
                             </div>
                         </div>
                     </div>
