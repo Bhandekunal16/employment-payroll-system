@@ -20,17 +20,17 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-
     const id = randomUUID();
+    const { name, email, salary } = body;
 
     await clickhouse.insert({
       table: "employees",
       values: [
         {
           id,
-          name: body.name,
-          email: body.email,
-          salary: Number(body.salary),
+          name,
+          email,
+          salary: Number(salary),
           deleted: 0,
           created_at: new Date().toISOString(),
         },
@@ -66,13 +66,12 @@ export async function PUT(req: NextRequest) {
 export async function DELETE(req: NextRequest) {
   try {
     const body = await req.json();
+    const { id } = body;
 
-    if (!body.id) {
-      return NextResponse.json({ error: "ID required" }, { status: 400 });
-    }
+    if (id) return NextResponse.json({ error: "ID required" }, { status: 400 });
 
     await clickhouse.command({
-      query: `ALTER TABLE employees DELETE WHERE id = '${body.id}'`,
+      query: `ALTER TABLE employees DELETE WHERE id = '${id}'`,
     });
 
     return NextResponse.json({ success: true });
