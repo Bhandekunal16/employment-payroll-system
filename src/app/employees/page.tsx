@@ -41,7 +41,7 @@ export default function EmployeesPage() {
             setEmployees(data);
             setFilteredEmployees(data);
         } catch (error) {
-            showNotification('error', 'Failed to load employees');
+            showNotification(1, 'Failed to load employees');
         } finally {
             setLoading(false);
         }
