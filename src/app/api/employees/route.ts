@@ -2,9 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { clickhouse } from "@/app/lib/clickhouse";
 import { randomUUID } from "crypto";
 
-// =======================
-// GET → Fetch latest active employees
-// =======================
 export async function GET() {
   try {
     const result = await clickhouse.query({
@@ -24,9 +21,6 @@ export async function GET() {
   }
 }
 
-// =======================
-// POST → Create employee
-// =======================
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -41,7 +35,7 @@ export async function POST(req: NextRequest) {
           name: body.name,
           email: body.email,
           salary: Number(body.salary),
-          deleted: 0, // ✅ IMPORTANT
+          deleted: 0,
           created_at: new Date().toISOString(),
         },
       ],
@@ -54,9 +48,6 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// =======================
-// PUT → Update employee (append-only)
-// =======================
 export async function PUT(req: NextRequest) {
   try {
     const body = await req.json();
@@ -65,7 +56,6 @@ export async function PUT(req: NextRequest) {
       return NextResponse.json({ error: "ID required" }, { status: 400 });
     }
 
-    // 🔹 Fetch latest record
     const result = await clickhouse.query({
       query: `
         SELECT *
@@ -86,7 +76,6 @@ export async function PUT(req: NextRequest) {
       );
     }
 
-    // 🔹 Insert updated version
     await clickhouse.insert({
       table: "employees",
       values: [
@@ -108,9 +97,6 @@ export async function PUT(req: NextRequest) {
   }
 }
 
-// =======================
-// DELETE → Soft delete
-// =======================
 export async function DELETE(req: NextRequest) {
   try {
     const body = await req.json();
