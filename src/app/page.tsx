@@ -5,6 +5,7 @@ import { Users, DollarSign, TrendingUp, FileText } from 'lucide-react';
 import Link from 'next/link';
 import employee_config from "./config/employee.config.json"
 import payroll_config from "./config/payroll.config.json"
+import MiniStatCard from './components/MiniStatCard';
 const { url } = payroll_config
 const getEmp = employee_config.url
 
@@ -61,62 +62,40 @@ export default function Home() {
       {/* Stats Cards */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
 
-        {/* Card */}
-        <div className="group bg-white/70 backdrop-blur rounded-xl shadow-sm p-4 hover:shadow-md transition">
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="text-xs text-gray-500">Employees</p>
-              <p className="text-xl font-semibold mt-1">
-                {loading ? '...' : totalEmployees}
-              </p>
-            </div>
-            <div className="p-2 rounded-lg bg-blue-50 group-hover:scale-110 transition">
-              <Users className="w-5 h-5 text-blue-600" />
-            </div>
-          </div>
-        </div>
+        <MiniStatCard
+          title="Employees"
+          value={totalEmployees}
+          icon={<Users />}
+          color="blue"
+          loading={loading}
+        />
 
-        <div className="group bg-white/70 backdrop-blur rounded-xl  shadow-sm p-4 hover:shadow-md transition">
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="text-xs text-gray-500">Total Payroll</p>
-              <p className="text-xl font-semibold mt-1">
-                ₹ {loading ? '...' : totalPayroll.toLocaleString()}
-              </p>
-            </div>
-            <div className="p-2 rounded-lg bg-green-50 group-hover:scale-110 transition">
-              <DollarSign className="w-5 h-5 text-green-600" />
-            </div>
-          </div>
-        </div>
+        <MiniStatCard
+          title="Total Payroll"
+          value={totalPayroll}
+          icon={<DollarSign />}
+          color="green"
+          loading={loading}
+          isCurrency
+        />
 
-        <div className="group bg-white/70 backdrop-blur rounded-xl  shadow-sm p-4 hover:shadow-md transition">
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="text-xs text-gray-500">Avg Salary</p>
-              <p className="text-xl font-semibold mt-1">
-                ₹ {loading ? '...' : Math.round(avgSalary).toLocaleString()}
-              </p>
-            </div>
-            <div className="p-2 rounded-lg bg-purple-50 group-hover:scale-110 transition">
-              <TrendingUp className="w-5 h-5 text-purple-600" />
-            </div>
-          </div>
-        </div>
+        <MiniStatCard
+          title="Avg Salary"
+          value={Math.round(avgSalary)}
+          icon={<TrendingUp />}
+          color="purple"
+          loading={loading}
+          isCurrency
+        />
 
-        <div className="group bg-white/70 backdrop-blur rounded-xl  shadow-sm p-4 hover:shadow-md transition">
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="text-xs text-gray-500">Payroll Records</p>
-              <p className="text-xl font-semibold mt-1">
-                {loading ? '...' : totalReports}
-              </p>
-            </div>
-            <div className="p-2 rounded-lg bg-orange-50 group-hover:scale-110 transition">
-              <FileText className="w-5 h-5 text-orange-600" />
-            </div>
-          </div>
-        </div>
+        <MiniStatCard
+          title="Payroll Records"
+          value={totalReports}
+          icon={<FileText />}
+          color="purple"
+          loading={loading}
+          isCurrency
+        />
 
       </div>
 
