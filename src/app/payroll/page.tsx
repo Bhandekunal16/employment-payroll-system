@@ -154,8 +154,7 @@ export default function PayrollPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {notification && (
-        <div className={`fixed top-4 right-4 z-50 animate-in slide-in-from-top-2 fade-in duration-300 ${notification.type === 'success' ? 'bg-green-500' : 'bg-red-500'
-          } text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-2`}>
+        <div className={`fixed top-4 right-4 z-50 animate-in slide-in-from-top-2 fade-in duration-300 ${notification.type === 'success' ? 'bg-green-500' : 'bg-red-500'} text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-2`}>
           {notification.type === 'success' ? '✓' : '✗'} {notification.message}
         </div>
       )}
@@ -175,9 +174,7 @@ export default function PayrollPage() {
                 <p className="text-gray-500 text-sm">Total Payroll</p>
                 <p className="text-3xl font-bold text-gray-900">₹{summary.totalPayroll.toLocaleString()}</p>
               </div>
-              <div className="bg-green-50 p-3 rounded-full">
-                <DollarSign className="w-6 h-6 text-green-500" />
-              </div>
+              <div className="bg-green-50 p-3 rounded-full"> <DollarSign className="w-6 h-6 text-green-500" /> </div>
             </div>
           </div>
 
@@ -187,9 +184,7 @@ export default function PayrollPage() {
                 <p className="text-gray-500 text-sm">Average Net Salary</p>
                 <p className="text-3xl font-bold text-gray-900">₹{summary.avgNetSalary.toLocaleString()}</p>
               </div>
-              <div className="bg-blue-50 p-3 rounded-full">
-                <TrendingUp className="w-6 h-6 text-blue-500" />
-              </div>
+              <div className="bg-blue-50 p-3 rounded-full"> <TrendingUp className="w-6 h-6 text-blue-500" /> </div>
             </div>
           </div>
 
@@ -199,9 +194,8 @@ export default function PayrollPage() {
                 <p className="text-gray-500 text-sm">Total Bonuses</p>
                 <p className="text-3xl font-bold text-gray-900">₹{summary.totalBonus.toLocaleString()}</p>
               </div>
-              <div className="bg-purple-50 p-3 rounded-full">
-                <TrendingUp className="w-6 h-6 text-purple-500" />
-              </div>
+
+              <div className="bg-purple-50 p-3 rounded-full"> <TrendingUp className="w-6 h-6 text-purple-500" /> </div>
             </div>
           </div>
         </div>
