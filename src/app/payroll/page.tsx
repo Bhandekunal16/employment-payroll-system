@@ -4,6 +4,7 @@ import React from 'react';
 import { Employee, Payroll_, PayrollForm } from '../types';
 import config from "../config/payroll.config.json"
 import employee_config from "../config/employee.config.json"
+import api_config from "../config/api.config.json"
 import {
   DollarSign,
   Calendar,
@@ -18,7 +19,9 @@ import {
   Filter
 } from 'lucide-react';
 const { defaultFormValue, url } = config
+const { methods, headers } = api_config
 const getEmp = employee_config.url
+const { POST, PUT } = methods
 
 
 export default function PayrollPage() {
@@ -99,13 +102,9 @@ export default function PayrollPage() {
 
     setLoading(true);
     try {
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form)
-      });
-
+      const res = await fetch(url, { method: POST, headers, body: JSON.stringify(form) });
       const data = await res.json();
+
       showNotification('success', `Payroll generated! Net Salary: ₹${data.net.toLocaleString()}`);
       await load();
       resetForm();
@@ -133,15 +132,7 @@ export default function PayrollPage() {
 
     setLoading(true);
     try {
-      await fetch(url, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          id: selectedPayrollId,
-          bonus: bonusNum
-        })
-      });
-
+      await fetch(url, { method: PUT, headers, body: JSON.stringify({ id: selectedPayrollId, bonus: bonusNum }) });
       showNotification('success', 'Bonus updated');
       setShowModal(false);
       await load();
