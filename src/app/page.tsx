@@ -1,24 +1,23 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import React from 'react';
 import { Users, DollarSign, TrendingUp, FileText } from 'lucide-react';
 import Link from 'next/link';
+import employee_config from "./config/employee.config.json"
+import payroll_config from "./config/payroll.config.json"
+const { url } = payroll_config
+const getEmp = employee_config.url
 
 export default function Home() {
-  const [employees, setEmployees] = useState<any[]>([]);
-  const [payrolls, setPayrolls] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [employees, setEmployees] = React.useState<any[]>([]);
+  const [payrolls, setPayrolls] = React.useState<any[]>([]);
+  const [loading, setLoading] = React.useState(true);
 
   const load = async () => {
     setLoading(true);
     try {
-      const [empRes, payRes] = await Promise.all([
-        fetch('/api/employees'),
-        fetch('/api/payroll')
-      ]);
-
-      const emp = await empRes.json();
-      const pay = await payRes.json();
+      const [empRes, payRes] = await Promise.all([fetch(getEmp), fetch(url)]);
+      const [emp, pay] = await Promise.all([empRes.json(), payRes.json()])
 
       setEmployees(emp);
       setPayrolls(pay);
@@ -29,9 +28,7 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
-    load();
-  }, []);
+  React.useEffect(() => { load().then(() => { console.log('i am working!'); }) }, []);
 
   const totalEmployees = employees.length;
 

@@ -121,7 +121,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           `}
         >
           {!isMobile && (
-            <div className="bg-white border-b px-4 py-2 flex justify-between items-center sticky top-0 z-30">
+            <div className="bg-white  px-4 py-2 flex justify-between items-center sticky top-0 z-30">
               <button
                 onClick={() => setSidebarOpen(prev => !prev)}
                 className="p-1"
