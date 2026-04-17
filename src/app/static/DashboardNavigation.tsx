@@ -14,7 +14,7 @@ const buttons = [
 ];
 
 export const DashboardNavigation = () => {
-  const addStyle = (input) => {
+  const addStyle = (input: string) => {
     return `w-full text-left px-4 py-2 text-sm rounded-lg  text-white ${input} transition`;
   };
 
