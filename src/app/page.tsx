@@ -2,11 +2,11 @@
 
 import React from 'react';
 import { Users, DollarSign, TrendingUp, FileText } from 'lucide-react';
-import Link from 'next/link';
 import employee_config from "./config/employee.config.json"
 import payroll_config from "./config/payroll.config.json"
 import MiniStatCard from './components/MiniStatCard';
 import { DashboardHeader } from "./static/DashboardHeader"
+import { DashboardNavigation } from "./static/DashboardNavigation"
 
 const { url } = payroll_config
 const getEmp = employee_config.url
@@ -93,27 +93,7 @@ export default function Home() {
       <div className="grid gap-4 lg:grid-cols-3">
 
         {/* Quick Actions */}
-        <div className="bg-white rounded-xl shadow-sm p-4">
-          <h2 className="text-sm font-semibold text-gray-800 mb-4">
-            Quick Actions
-          </h2>
-
-          <div className="flex flex-col gap-3">
-
-            <Link href="/employees">
-              <button className="w-full text-left px-4 py-2 text-sm rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition">
-                + Add Employee
-              </button>
-            </Link>
-
-            <Link href="/payroll">
-              <button className="w-full text-left px-4 py-2 text-sm rounded-lg bg-green-600 text-white hover:bg-green-700 transition">
-                + Generate Payroll
-              </button>
-            </Link>
-
-          </div>
-        </div>
+        <DashboardNavigation />
 
         {/* Recent Payroll */}
         <div className="bg-white rounded-xl  shadow-sm p-4 lg:col-span-2">
@@ -128,14 +108,14 @@ export default function Home() {
           ) : (
             <div className="divide-y">
 
-              {payrolls.slice(0, 5).map((p, i) => (
+              {payrolls.slice(0, 1).map((p, i) => (
                 <div
                   key={i}
                   className="flex justify-between py-2 text-sm hover:bg-gray-50 px-2 rounded transition"
                 >
                   <span className="text-gray-700">{p.month}</span>
                   <span className="font-medium text-gray-900">
-                    ₹ {p.net_salary}
+                    ₹ {p.base_salary + p.bonus}
                   </span>
                 </div>
               ))}
@@ -143,6 +123,10 @@ export default function Home() {
             </div>
           )}
         </div>
+
+
+
+
 
       </div>
 
