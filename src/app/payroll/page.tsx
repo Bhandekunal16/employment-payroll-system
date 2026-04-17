@@ -1,13 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import React from 'react';
+import { Employee, Payroll_, PayrollForm } from '../types';
+import config from "../config/payroll.config.json"
+import employee_config from "../config/employee.config.json"
 import {
   DollarSign,
   Calendar,
   TrendingUp,
-  TrendingDown,
   FileText,
-  Users,
   Plus,
   Edit2,
   Search,
@@ -16,68 +17,32 @@ import {
   Download,
   Filter
 } from 'lucide-react';
+const { defaultFormValue, url } = config
+const getEmp = employee_config.url
 
-interface Employee {
-  id: string;
-  name: string;
-  email: string;
-  salary: number;
-}
-
-interface Payroll {
-  id: string;
-  employee_id: string;
-  employee_name?: string;
-  month: string;
-  base_salary: number;
-  bonus: number;
-  deductions: number;
-  net_salary: number;
-  created_at?: string;
-}
-
-interface PayrollForm {
-  employee_id: string;
-  month: string;
-  base_salary: number;
-  bonus: number;
-  deductions: number;
-}
 
 export default function PayrollPage() {
-  const [employees, setEmployees] = useState<Employee[]>([]);
-  const [payrolls, setPayrolls] = useState<Payroll[]>([]);
-  const [filteredPayrolls, setFilteredPayrolls] = useState<Payroll[]>([]);
-  const [form, setForm] = useState<PayrollForm>({
-    employee_id: '',
-    month: '',
-    base_salary: 0,
-    bonus: 0,
-    deductions: 0
-  });
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedMonth, setSelectedMonth] = useState('');
-  const [loading, setLoading] = useState(true);
-  const [showForm, setShowForm] = useState(false);
-  const [notification, setNotification] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
-  const [summary, setSummary] = useState({ totalPayroll: 0, avgNetSalary: 0, totalBonus: 0 });
-  const [showModal, setShowModal] = useState(false);
-  const [selectedPayrollId, setSelectedPayrollId] = useState<string | null>(null);
-  const [bonusInput, setBonusInput] = useState('');
+  const [employees, setEmployees] = React.useState<Employee[]>([]);
+  const [payrolls, setPayrolls] = React.useState<Payroll_[]>([]);
+  const [filteredPayrolls, setFilteredPayrolls] = React.useState<Payroll_[]>([]);
+  const [form, setForm] = React.useState<PayrollForm>(defaultFormValue);
+  const [searchTerm, setSearchTerm] = React.useState('');
+  const [selectedMonth, setSelectedMonth] = React.useState('');
+  const [loading, setLoading] = React.useState(true);
+  const [showForm, setShowForm] = React.useState(false);
+  const [notification, setNotification] = React.useState<{ type: 'success' | 'error'; message: string } | null>(null);
+  const [summary, setSummary] = React.useState({ totalPayroll: 0, avgNetSalary: 0, totalBonus: 0 });
+  const [showModal, setShowModal] = React.useState(false);
+  const [selectedPayrollId, setSelectedPayrollId] = React.useState<string | null>(null);
+  const [bonusInput, setBonusInput] = React.useState('');
 
   const load = async () => {
     setLoading(true);
     try {
-      const [empRes, payRes] = await Promise.all([
-        fetch('/api/employees'),
-        fetch('/api/payroll')
-      ]);
+      const [empRes, payRes] = await Promise.all([fetch(getEmp), fetch(url)]);
+      const [emp, pay] = await Promise.all([empRes.json(), payRes.json()])
 
-      const emp = await empRes.json();
-      const pay = await payRes.json();
-
-      // Enrich payroll data with employee names
-      const enrichedPayrolls = pay.map((p: Payroll) => ({
+      const enrichedPayrolls = pay.map((p: Payroll_) => ({
         ...p,
         employee_name: emp.find((e: Employee) => e.id === p.employee_id)?.name || 'Unknown'
       }));
@@ -93,11 +58,11 @@ export default function PayrollPage() {
     }
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     load();
   }, []);
 
-  useEffect(() => {
+  React.useEffect(() => {
     let filtered = payrolls;
 
     if (searchTerm) {
@@ -115,7 +80,7 @@ export default function PayrollPage() {
     calculateSummary(filtered);
   }, [searchTerm, selectedMonth, payrolls]);
 
-  const calculateSummary = (payrollsList: Payroll[]) => {
+  const calculateSummary = (payrollsList: Payroll_[]) => {
     const total = payrollsList.reduce((sum, p) => sum + p.net_salary, 0);
     const avg = payrollsList.length ? total / payrollsList.length : 0;
     const totalBonus = payrollsList.reduce((sum, p) => sum + (p.bonus || 0), 0);
@@ -133,13 +98,7 @@ export default function PayrollPage() {
   };
 
   const resetForm = () => {
-    setForm({
-      employee_id: '',
-      month: '',
-      base_salary: 0,
-      bonus: 0,
-      deductions: 0
-    });
+    setForm(defaultFormValue);
     setShowForm(false);
   };
 
@@ -160,7 +119,7 @@ export default function PayrollPage() {
 
     setLoading(true);
     try {
-      const res = await fetch('/api/payroll', {
+      const res = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)
@@ -194,7 +153,7 @@ export default function PayrollPage() {
 
     setLoading(true);
     try {
-      await fetch('/api/payroll', {
+      await fetch(url, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

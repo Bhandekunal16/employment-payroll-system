@@ -11,7 +11,6 @@ export async function GET() {
       query: `SELECT * FROM payroll ORDER BY created_at DESC LIMIT 1 BY id`,
       format,
     });
-
     return NextResponse.json(await result.json());
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 500 });

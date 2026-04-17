@@ -1,0 +1,10 @@
+{
+  "defaultFormValue": {
+    "employee_id": "",
+    "month": "",
+    "base_salary": 0,
+    "bonus": 0,
+    "deductions": 0
+  },
+  "url": "/api/payroll"
+}
