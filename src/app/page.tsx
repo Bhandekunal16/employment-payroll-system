@@ -6,6 +6,8 @@ import Link from 'next/link';
 import employee_config from "./config/employee.config.json"
 import payroll_config from "./config/payroll.config.json"
 import MiniStatCard from './components/MiniStatCard';
+import { DashboardHeader } from "./static/DashboardHeader"
+
 const { url } = payroll_config
 const getEmp = employee_config.url
 
@@ -46,19 +48,7 @@ export default function Home() {
 
   return (
     <div className="p-4 md:p-6 space-y-6">
-
-
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
-        <div>
-          <h1 className="text-2xl font-semibold text-gray-900">
-            Dashboard
-          </h1>
-          <p className="text-sm text-gray-500">
-            Welcome back 👋 — here’s your payroll overview
-          </p>
-        </div>
-      </div>
-
+      <DashboardHeader />
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
 
