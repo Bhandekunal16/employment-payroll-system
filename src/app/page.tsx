@@ -47,7 +47,7 @@ export default function Home() {
   return (
     <div className="p-4 md:p-6 space-y-6">
 
-      {/* Header */}
+
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900">
@@ -59,7 +59,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Stats Cards */}
+
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
 
         <MiniStatCard
