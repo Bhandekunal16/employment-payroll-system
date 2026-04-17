@@ -255,9 +255,7 @@ export default function PayrollPage() {
                     required
                   >
                     <option value="">Select Employee</option>
-                    {employees.map(emp => (
-                      <option key={emp.id} value={emp.id}>{emp.name}</option>
-                    ))}
+                    {employees.map(emp => (<option key={emp.id} value={emp.id}>{emp.name}</option>))}
                   </select>
                 </div>
 
