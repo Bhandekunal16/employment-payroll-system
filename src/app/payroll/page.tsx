@@ -18,6 +18,7 @@ import {
   Download,
   Filter
 } from 'lucide-react';
+import StatCard from '../components/StatCard';
 const { defaultFormValue, url } = config
 const { methods, headers } = api_config
 const getEmp = employee_config.url
@@ -72,7 +73,7 @@ export default function PayrollPage() {
   }, [searchTerm, selectedMonth, payrolls]);
 
   const summary = React.useMemo(() => {
-    const total = filteredPayrolls.reduce((sum, p) => sum + p.net_salary, 0);
+    const total = filteredPayrolls.reduce((sum, p) => sum + p.base_salary + p.bonus, 0);
     const avg = filteredPayrolls.length ? total / filteredPayrolls.length : 0;
     const totalBonus = filteredPayrolls.reduce((sum, p) => sum + (p.bonus || 0), 0);
     return { totalPayroll: total, avgNetSalary: avg, totalBonus };
@@ -168,36 +169,28 @@ export default function PayrollPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-2">
-          <div className="bg-white rounded-xl shadow-sm p-4 border border-gray-100 hover:shadow-md transition-shadow">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-500 text-sm">Total Payroll</p>
-                <p className="text-3xl font-bold text-gray-900">₹{summary.totalPayroll.toLocaleString()}</p>
-              </div>
-              <div className="bg-green-50 p-3 rounded-full"> <DollarSign className="w-6 h-6 text-green-500" /> </div>
-            </div>
-          </div>
 
-          <div className="bg-white rounded-xl shadow-sm p-4 border border-gray-100 hover:shadow-md transition-shadow">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-500 text-sm">Average Net Salary</p>
-                <p className="text-3xl font-bold text-gray-900">₹{summary.avgNetSalary.toLocaleString()}</p>
-              </div>
-              <div className="bg-blue-50 p-3 rounded-full"> <TrendingUp className="w-6 h-6 text-blue-500" /> </div>
-            </div>
-          </div>
+          <StatCard
+            title="Total Payroll"
+            value={summary.totalPayroll}
+            icon={<DollarSign />}
+            color="green"
+          />
 
-          <div className="bg-white rounded-xl shadow-sm p-4 border border-gray-100 hover:shadow-md transition-shadow">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-500 text-sm">Total Bonuses</p>
-                <p className="text-3xl font-bold text-gray-900">₹{summary.totalBonus.toLocaleString()}</p>
-              </div>
+          <StatCard
+            title="Average Net Salary"
+            value={summary.avgNetSalary}
+            icon={<TrendingUp />}
+            color="blue"
+          />
 
-              <div className="bg-purple-50 p-3 rounded-full"> <TrendingUp className="w-6 h-6 text-purple-500" /> </div>
-            </div>
-          </div>
+          <StatCard
+            title="Total Bonuses"
+            value={summary.totalBonus}
+            icon={<TrendingUp />}
+            color="purple"
+          />
+
         </div>
 
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 mb-6">
