@@ -173,9 +173,7 @@ export default function EmployeesPage() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-2">
-                    {stats.map((stat) => (
-                        <StatCard key={stat.title} {...stat} />
-                    ))}
+                    {stats.map((stat) => (<StatCard key={stat.title} {...stat} />))}
                 </div>
 
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 mb-6">
