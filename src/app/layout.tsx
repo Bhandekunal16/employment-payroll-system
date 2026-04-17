@@ -46,7 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-gray-100 text-sm">
 
         {isMobile && (
-          <div className="fixed top-0 left-0 right-0 bg-white border-b z-50 px-3 py-2 flex items-center justify-between">
+          <div className="fixed top-0 left-0 right-0 bg-white z-50 px-3 py-2 flex items-center justify-between">
             <button onClick={() => setSidebarOpen(true)} className="p-1">
               <Menu className="w-5 h-5" />
             </button>
