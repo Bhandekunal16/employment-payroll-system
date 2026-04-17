@@ -40,10 +40,7 @@ export default function PayrollPage() {
       const [empRes, payRes] = await Promise.all([fetch(getEmp), fetch(url)]);
       const [emp, pay] = await Promise.all([empRes.json(), payRes.json()])
 
-      const enrichedPayrolls = pay.map((p: Payroll_) => ({
-        ...p,
-        employee_name: emp.find((e: Employee) => e.id === p.employee_id)?.name || 'Unknown'
-      }));
+      const enrichedPayrolls = pay.map((p: Payroll_) => ({ ...p, employee_name: emp.find((e: Employee) => e.id === p.employee_id)?.name || 'Unknown' }));
 
       setEmployees(emp);
       setPayrolls(enrichedPayrolls);
