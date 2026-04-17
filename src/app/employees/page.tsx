@@ -127,8 +127,33 @@ export default function EmployeesPage() {
         }
     };
 
+
+
     const totalSalary = employees.reduce((sum, emp) => sum + emp.salary, 0);
     const averageSalary = employees.length ? totalSalary / employees.length : 0;
+
+    const stats = [
+        {
+            title: "Total Employees",
+            value: employees.length,
+            icon: <Users />,
+            color: "blue",
+        },
+        {
+            title: "Total Salary Pool",
+            value: totalSalary,
+            icon: <IndianRupee />,
+            color: "green",
+            isCurrency: true,
+        },
+        {
+            title: "Average Salary",
+            value: averageSalary,
+            icon: <IndianRupee />,
+            color: "purple",
+            isCurrency: true,
+        },
+    ] as const;
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
@@ -148,28 +173,9 @@ export default function EmployeesPage() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-2">
-                    <StatCard
-                        title="Total Employees"
-                        value={employees.length}
-                        icon={<Users />}
-                        color="blue"
-                    />
-
-                    <StatCard
-                        title="Total Salary Pool"
-                        value={totalSalary}
-                        icon={<IndianRupee />}
-                        color="green"
-                        isCurrency
-                    />
-
-                    <StatCard
-                        title="Average Salary"
-                        value={averageSalary}
-                        icon={<IndianRupee />}
-                        color="purple"
-                        isCurrency
-                    />
+                    {stats.map((stat) => (
+                        <StatCard key={stat.title} {...stat} />
+                    ))}
                 </div>
 
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 mb-6">
