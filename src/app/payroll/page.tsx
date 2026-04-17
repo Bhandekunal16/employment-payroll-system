@@ -24,14 +24,12 @@ const getEmp = employee_config.url
 export default function PayrollPage() {
   const [employees, setEmployees] = React.useState<Employee[]>([]);
   const [payrolls, setPayrolls] = React.useState<Payroll_[]>([]);
-  // const [filteredPayrolls, setFilteredPayrolls] = React.useState<Payroll_[]>([]);
   const [form, setForm] = React.useState<PayrollForm>(defaultFormValue);
   const [searchTerm, setSearchTerm] = React.useState('');
   const [selectedMonth, setSelectedMonth] = React.useState('');
   const [loading, setLoading] = React.useState(true);
   const [showForm, setShowForm] = React.useState(false);
   const [notification, setNotification] = React.useState<{ type: 'success' | 'error'; message: string } | null>(null);
-  // const [summary, setSummary] = React.useState({ totalPayroll: 0, avgNetSalary: 0, totalBonus: 0 });
   const [showModal, setShowModal] = React.useState(false);
   const [selectedPayrollId, setSelectedPayrollId] = React.useState<string | null>(null);
   const [bonusInput, setBonusInput] = React.useState('');
