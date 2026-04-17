@@ -51,9 +51,7 @@ export default function PayrollPage() {
     }
   };
 
-  React.useEffect(() => {
-    load();
-  }, []);
+  React.useEffect(() => { load(); }, []);
 
   const filteredPayrolls = React.useMemo(() => {
     let filtered = payrolls;
