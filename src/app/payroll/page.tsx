@@ -6,7 +6,6 @@ import config from "../config/payroll.config.json"
 import employee_config from "../config/employee.config.json"
 import api_config from "../config/api.config.json"
 import {
-  DollarSign,
   Calendar,
   TrendingUp,
   FileText,
@@ -16,7 +15,8 @@ import {
   X,
   Loader2,
   Download,
-  Filter
+  Filter,
+  IndianRupee
 } from 'lucide-react';
 import StatCard from '../components/StatCard';
 const { defaultFormValue, url } = config
@@ -173,7 +173,7 @@ export default function PayrollPage() {
           <StatCard
             title="Total Payroll"
             value={summary.totalPayroll}
-            icon={<DollarSign />}
+            icon={<IndianRupee />}
             color="green"
           />
 
