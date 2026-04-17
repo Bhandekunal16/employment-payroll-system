@@ -322,10 +322,10 @@ export default function EmployeesPage() {
                             <table className="w-full">
                                 <thead className="bg-gray-50 border-b border-gray-100">
                                     <tr>
-                                        <th className="text-left py-4 px-6 font-semibold text-gray-600">Name</th>
-                                        <th className="text-left py-4 px-6 font-semibold text-gray-600">Email</th>
-                                        <th className="text-right py-4 px-6 font-semibold text-gray-600">Salary</th>
-                                        <th className="text-center py-4 px-6 font-semibold text-gray-600">Actions</th>
+                                        <th className="text-left py-3 px-6 font-semibold text-gray-600">Name</th>
+                                        <th className="text-left py-3 px-6 font-semibold text-gray-600">Email</th>
+                                        <th className="text-right py-3 px-6 font-semibold text-gray-600">Salary</th>
+                                        <th className="text-center py-3 px-6 font-semibold text-gray-600">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -343,18 +343,18 @@ export default function EmployeesPage() {
                                                     <span className="font-medium text-gray-900">{emp.name}</span>
                                                 </div>
                                             </td>
-                                            <td className="py-3 px-6">
+                                            <td className="py-2 px-4">
                                                 <div className="flex items-center gap-2">
                                                     <Mail className="w-4 h-4 text-gray-400" />
                                                     <span className="text-gray-600">{emp.email}</span>
                                                 </div>
                                             </td>
-                                            <td className="py-3 px-6 text-right">
+                                            <td className="py-2 px-4 text-right">
                                                 <span className="font-semibold text-gray-900">
                                                     ₹{emp.salary.toLocaleString()}
                                                 </span>
                                             </td>
-                                            <td className="py-3 px-6">
+                                            <td className="py-2 px-4">
                                                 <div className="flex items-center justify-center gap-2">
                                                     <button
                                                         onClick={() => handleEdit(emp)}
