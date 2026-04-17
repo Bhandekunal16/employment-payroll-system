@@ -24,6 +24,13 @@ const { methods, headers } = api_config
 const getEmp = employee_config.url
 const { POST, PUT } = methods
 
+type Stat = {
+  title: string;
+  value: number;
+  icon: React.ReactNode;
+  color: 'blue' | 'green' | 'purple';
+};
+
 
 export default function PayrollPage() {
   const [employees, setEmployees] = React.useState<Employee[]>([]);
@@ -37,6 +44,8 @@ export default function PayrollPage() {
   const [showModal, setShowModal] = React.useState(false);
   const [selectedPayrollId, setSelectedPayrollId] = React.useState<string | null>(null);
   const [bonusInput, setBonusInput] = React.useState('');
+
+
 
   const load = async () => {
     setLoading(true);
@@ -78,6 +87,27 @@ export default function PayrollPage() {
     const totalBonus = filteredPayrolls.reduce((sum, p) => sum + (p.bonus || 0), 0);
     return { totalPayroll: total, avgNetSalary: avg, totalBonus };
   }, [filteredPayrolls]);
+
+  const payrollStats: Stat[] = [
+    {
+      title: "Total Payroll",
+      value: summary.totalPayroll,
+      icon: <IndianRupee />,
+      color: "green",
+    },
+    {
+      title: "Average Net Salary",
+      value: summary.avgNetSalary,
+      icon: <TrendingUp />,
+      color: "blue",
+    },
+    {
+      title: "Total Bonuses",
+      value: summary.totalBonus,
+      icon: <TrendingUp />,
+      color: "purple",
+    },
+  ];
 
 
   const showNotification = (type: 'success' | 'error', message: string) => {
@@ -169,28 +199,7 @@ export default function PayrollPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-2">
-
-          <StatCard
-            title="Total Payroll"
-            value={summary.totalPayroll}
-            icon={<IndianRupee />}
-            color="green"
-          />
-
-          <StatCard
-            title="Average Net Salary"
-            value={summary.avgNetSalary}
-            icon={<TrendingUp />}
-            color="blue"
-          />
-
-          <StatCard
-            title="Total Bonuses"
-            value={summary.totalBonus}
-            icon={<TrendingUp />}
-            color="purple"
-          />
-
+          {payrollStats.map((stat) => (<StatCard key={stat.title} {...stat} />))}
         </div>
 
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 mb-6">
