@@ -148,10 +148,8 @@ export default function PayrollPage() {
     return [...new Set(months)];
   };
 
-  const calculateNetSalary = () => {
-    console.log(form.base_salary + form.bonus - form.deductions, 0);
-    return form.base_salary + form.bonus - form.deductions;
-  };
+  const calculateNetSalary = () => { return form.base_salary + form.bonus - form.deductions };
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
