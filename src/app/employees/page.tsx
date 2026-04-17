@@ -16,6 +16,7 @@ import { Employee, FormData } from '../types';
 import config from "../config/employee.config.json"
 import apiConfig from "../config/api.config.json"
 import { stringify } from '../core/app.service';
+import StatCard from '../components/StatCard';
 
 const { defaultFormValue, url } = config
 const { methods, headers } = apiConfig
@@ -147,41 +148,28 @@ export default function EmployeesPage() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-2">
-                    <div className="bg-white rounded-xl shadow-sm p-4 border border-gray-100 hover:shadow-md transition-shadow">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className="text-gray-500 text-sm">Total Employees</p>
-                                <p className="text-3xl font-bold text-gray-900">{employees.length}</p>
-                            </div>
-                            <div className="bg-blue-50 p-3 rounded-full">
-                                <Users className="w-6 h-6 text-blue-500" />
-                            </div>
-                        </div>
-                    </div>
+                    <StatCard
+                        title="Total Employees"
+                        value={employees.length}
+                        icon={<Users />}
+                        color="blue"
+                    />
 
-                    <div className="bg-white rounded-xl shadow-sm p-4 border border-gray-100 hover:shadow-md transition-shadow">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className="text-gray-500 text-sm">Total Salary Pool</p>
-                                <p className="text-3xl font-bold text-gray-900">₹{totalSalary.toLocaleString()}</p>
-                            </div>
-                            <div className="bg-green-50 p-3 rounded-full">
-                                <IndianRupee className="w-6 h-6 text-green-500" />
-                            </div>
-                        </div>
-                    </div>
+                    <StatCard
+                        title="Total Salary Pool"
+                        value={totalSalary}
+                        icon={<IndianRupee />}
+                        color="green"
+                        isCurrency
+                    />
 
-                    <div className="bg-white rounded-xl shadow-sm p-4 border border-gray-100 hover:shadow-md transition-shadow">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className="text-gray-500 text-sm">Average Salary</p>
-                                <p className="text-3xl font-bold text-gray-900">₹{averageSalary.toLocaleString()}</p>
-                            </div>
-                            <div className="bg-purple-50 p-3 rounded-full">
-                                <IndianRupee className="w-6 h-6 text-purple-500" />
-                            </div>
-                        </div>
-                    </div>
+                    <StatCard
+                        title="Average Salary"
+                        value={averageSalary}
+                        icon={<IndianRupee />}
+                        color="purple"
+                        isCurrency
+                    />
                 </div>
 
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 mb-6">

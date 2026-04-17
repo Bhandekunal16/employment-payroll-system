@@ -4,6 +4,7 @@ interface StatCardProps {
   title: string;
   value: number;
   icon: React.ReactNode;
+  isCurrency?: boolean;
   color: 'green' | 'blue' | 'purple';
 }
 
@@ -22,7 +23,7 @@ const colorMap = {
   }
 };
 
-export default function StatCard({ title, value, icon, color }: StatCardProps) {
+export default function StatCard({ title, value, icon, color, isCurrency = false }: StatCardProps) {
   const styles = colorMap[color];
 
   return (
@@ -32,7 +33,7 @@ export default function StatCard({ title, value, icon, color }: StatCardProps) {
         <div>
           <p className="text-gray-500 text-sm">{title}</p>
           <p className="text-3xl font-bold text-gray-900">
-            ₹{value.toLocaleString()}
+            {isCurrency ? `₹${value.toLocaleString()}` : value}
           </p>
         </div>
 
