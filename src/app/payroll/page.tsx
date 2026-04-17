@@ -24,14 +24,14 @@ const getEmp = employee_config.url
 export default function PayrollPage() {
   const [employees, setEmployees] = React.useState<Employee[]>([]);
   const [payrolls, setPayrolls] = React.useState<Payroll_[]>([]);
-  const [filteredPayrolls, setFilteredPayrolls] = React.useState<Payroll_[]>([]);
+  // const [filteredPayrolls, setFilteredPayrolls] = React.useState<Payroll_[]>([]);
   const [form, setForm] = React.useState<PayrollForm>(defaultFormValue);
   const [searchTerm, setSearchTerm] = React.useState('');
   const [selectedMonth, setSelectedMonth] = React.useState('');
   const [loading, setLoading] = React.useState(true);
   const [showForm, setShowForm] = React.useState(false);
   const [notification, setNotification] = React.useState<{ type: 'success' | 'error'; message: string } | null>(null);
-  const [summary, setSummary] = React.useState({ totalPayroll: 0, avgNetSalary: 0, totalBonus: 0 });
+  // const [summary, setSummary] = React.useState({ totalPayroll: 0, avgNetSalary: 0, totalBonus: 0 });
   const [showModal, setShowModal] = React.useState(false);
   const [selectedPayrollId, setSelectedPayrollId] = React.useState<string | null>(null);
   const [bonusInput, setBonusInput] = React.useState('');
@@ -49,8 +49,6 @@ export default function PayrollPage() {
 
       setEmployees(emp);
       setPayrolls(enrichedPayrolls);
-      setFilteredPayrolls(enrichedPayrolls);
-      calculateSummary(enrichedPayrolls);
     } catch (error) {
       showNotification('error', 'Failed to load data');
     } finally {
@@ -62,7 +60,7 @@ export default function PayrollPage() {
     load();
   }, []);
 
-  React.useEffect(() => {
+  const filteredPayrolls = React.useMemo(() => {
     let filtered = payrolls;
 
     if (searchTerm) {
@@ -76,21 +74,21 @@ export default function PayrollPage() {
       filtered = filtered.filter(p => p.month === selectedMonth);
     }
 
-    setFilteredPayrolls(filtered);
-    calculateSummary(filtered);
+    return filtered;
   }, [searchTerm, selectedMonth, payrolls]);
 
-  const calculateSummary = (payrollsList: Payroll_[]) => {
-    const total = payrollsList.reduce((sum, p) => sum + p.net_salary, 0);
-    const avg = payrollsList.length ? total / payrollsList.length : 0;
-    const totalBonus = payrollsList.reduce((sum, p) => sum + (p.bonus || 0), 0);
+  const summary = React.useMemo(() => {
+    const total = filteredPayrolls.reduce((sum, p) => sum + p.net_salary, 0);
+    const avg = filteredPayrolls.length ? total / filteredPayrolls.length : 0;
+    const totalBonus = filteredPayrolls.reduce((sum, p) => sum + (p.bonus || 0), 0);
 
-    setSummary({
+    return {
       totalPayroll: total,
       avgNetSalary: avg,
-      totalBonus: totalBonus
-    });
-  };
+      totalBonus
+    };
+  }, [filteredPayrolls]);
+
 
   const showNotification = (type: 'success' | 'error', message: string) => {
     setNotification({ type, message });
@@ -178,6 +176,7 @@ export default function PayrollPage() {
   };
 
   const calculateNetSalary = () => {
+    console.log(form.base_salary + form.bonus - form.deductions, 0);
     return form.base_salary + form.bonus - form.deductions;
   };
 
@@ -431,7 +430,7 @@ export default function PayrollPage() {
                         <span className="text-red-600 font-medium">-₹{payroll.deductions?.toLocaleString() || 0}</span>
                       </td>
                       <td className="py-3 px-6 text-right">
-                        <span className="font-bold text-gray-900">₹{payroll.net_salary.toLocaleString()}</span>
+                        <span className="font-bold text-gray-900">₹{(payroll.base_salary + payroll.bonus - payroll.deductions).toLocaleString()}</span>
                       </td>
                       <td className="py-3 px-6">
                         <div className="flex items-center justify-center gap-2">
