@@ -70,9 +70,7 @@ export default function PayrollPage() {
       );
     }
 
-    if (selectedMonth) {
-      filtered = filtered.filter(p => p.month === selectedMonth);
-    }
+    if (selectedMonth) filtered = filtered.filter(p => p.month === selectedMonth);
 
     return filtered;
   }, [searchTerm, selectedMonth, payrolls]);
@@ -81,12 +79,7 @@ export default function PayrollPage() {
     const total = filteredPayrolls.reduce((sum, p) => sum + p.net_salary, 0);
     const avg = filteredPayrolls.length ? total / filteredPayrolls.length : 0;
     const totalBonus = filteredPayrolls.reduce((sum, p) => sum + (p.bonus || 0), 0);
-
-    return {
-      totalPayroll: total,
-      avgNetSalary: avg,
-      totalBonus
-    };
+    return { totalPayroll: total, avgNetSalary: avg, totalBonus };
   }, [filteredPayrolls]);
 
 
@@ -102,11 +95,7 @@ export default function PayrollPage() {
 
   const handleEmployeeSelect = (employeeId: string) => {
     const employee = employees.find(e => e.id === employeeId);
-    setForm({
-      ...form,
-      employee_id: employeeId,
-      base_salary: employee?.salary || 0
-    });
+    setForm({ ...form, employee_id: employeeId, base_salary: employee?.salary || 0 });
   };
 
   const submit = async () => {
