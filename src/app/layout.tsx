@@ -11,7 +11,9 @@ import {
   X,
   ChevronDown,
   Briefcase,
-  Bell
+  Bell,
+  Moon,
+  Sun
 } from 'lucide-react';
 
 import './globals.css';
@@ -21,6 +23,29 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+
+  const background = { dark: "dark:bg-gray-800 dark:text-gray-600", light: "bg-white text-gray-600" }
+
+  useEffect(() => {
+    console.log(darkMode, 0);
+    localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [darkMode]);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      setDarkMode(true);
+      document.documentElement.classList.add('dark');
+    }
+  }, []);
+
+  const toggleDarkMode = () => { setDarkMode(prev => !prev); };
 
   useEffect(() => {
     const checkMobile = () => {
@@ -46,11 +71,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-gray-100 text-sm">
 
         {isMobile && (
-          <div className="fixed top-0 left-0 right-0 bg-white z-50 px-3 py-2 flex items-center justify-between">
+          <div className={`fixed top-0 left-0 right-0  z-50 px-3 py-2 flex items-center justify-between ${background[darkMode ? "dark" : "light"]}`}>
             <button onClick={() => setSidebarOpen(true)} className="p-1">
               <Menu className="w-5 h-5" />
             </button>
-            <h1 className="font-semibold">Payroll</h1>
+
+            <div className="flex items-center gap-3">
+              {darkMode ? (
+                <Sun className="w-4 h-4 text-yellow-500" onClick={toggleDarkMode} />
+              ) : (
+                <Moon className="w-4 h-4 text-gray-600 dark:text-gray-400" onClick={toggleDarkMode} />
+              )}
+              <h1 className="font-semibold">Payroll</h1>
+            </div>
+
           </div>
         )}
 
@@ -121,21 +155,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           `}
         >
           {!isMobile && (
-            <div className="bg-white  px-4 py-2 flex justify-between items-center sticky top-0 z-30">
+            <div className={darkMode ? "bg-white text-gray-600  px-4 py-2 flex justify-between items-center sticky top-0 z-30" : "dark:bg-gray-800 dark:text-gray-600 px-4 py-2 flex justify-between items-center sticky top-0 z-30"}>
               <button
                 onClick={() => setSidebarOpen(prev => !prev)}
                 className="p-1"
               >
-                <Menu className="w-4 h-4" />
+                <Menu className="w-4 h-4 text-gray-600 dark:text-gray-400" />
               </button>
 
               <div className="flex items-center gap-3">
-                <Bell className="w-4 h-4 text-gray-600" />
+                <Bell className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+                {!darkMode ? (
+                  <Sun className="w-4 h-4 text-yellow-500" onClick={toggleDarkMode} />
+                ) : (
+                  <Moon className="w-4 h-4 text-gray-600 dark:text-gray-400" onClick={toggleDarkMode} />
+                )}
                 <div className="flex items-center gap-2">
                   <div className="w-7 h-7 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs">
                     JD
                   </div>
-                  <span className="text-xs">John</span>
+                  <span className="text-gray-600 dark:text-gray-400 text-xs">John</span>
                 </div>
               </div>
             </div>
